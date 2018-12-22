@@ -8,6 +8,12 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
+import {
+  NonceTxMiddleware, SignedTxMiddleware, Client, ClientEvent,
+  Contract, Address, LocalAddress, CryptoUtils
+} from 'loom-js';
+import { MapEntry } from './helloworld_pb';
+
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
