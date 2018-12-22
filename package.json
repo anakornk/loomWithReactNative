@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "loom-js": "^1.36.2",
+    "node-libs-react-native": "^1.0.3",
     "react": "16.6.3",
     "react-native": "0.57.8"
   },
