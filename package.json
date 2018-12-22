@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "proto": "protoc --js_out=\"import_style=commonjs,binary:.\" helloworld.proto"
   },
   "dependencies": {
     "loom-js": "^1.36.2",
