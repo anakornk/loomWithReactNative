@@ -13,6 +13,7 @@ import {
   Contract, Address, LocalAddress, CryptoUtils
 } from 'loom-js';
 import { MapEntry } from './helloworld_pb';
+import Web3 from 'web3';
 
 
 const instructions = Platform.select({
@@ -24,7 +25,15 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class App extends Component<Props> {
+  constructor() {
+    super();
+    this.state = {
+      value: "test",
+      account: ""
+    };
+  }
   componentDidMount() {
+    var that = this;
     (async function () {
       const privateKey = CryptoUtils.generatePrivateKey()
       const publicKey = CryptoUtils.publicKeyFromPrivateKey(privateKey)
@@ -33,7 +42,21 @@ export default class App extends Component<Props> {
       await store(contract, '123', 'hello!')
       const value = await load(contract, '123')
       console.log('Value: ' + value)
+      that.setState({
+        value
+      })
     })();
+
+    this.web3  = new Web3('ws://localhost:8545');
+    this.web3.eth.getBlock('latest').then(console.log).catch(console.log);
+    this.web3.eth.getAccounts(function(error,res) {
+      if(!error) {
+        console.log(res);
+        that.setState({account: res[0]})
+      } else {
+        console.log(error);
+      }
+    });
   }
   render() {
     return (
@@ -41,6 +64,8 @@ export default class App extends Component<Props> {
         <Text style={styles.welcome}>Welcome to React Native!</Text>
         <Text style={styles.instructions}>To get started, edit App.js</Text>
         <Text style={styles.instructions}>{instructions}</Text>
+        <Text>{this.state.value}</Text>
+        <Text>{this.state.account}</Text>
       </View>
     );
   }
